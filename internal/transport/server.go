@@ -248,6 +248,9 @@ func (s *Server) ListenAndServe() error {
 		close(s.StartCh)
 	}()
 
+	if s.dispatcher == nil {
+		return errors.New("no dispatcher found")
+	}
 	addr := net.JoinHostPort(s.bindAddr, strconv.Itoa(s.bindPort))
 	l, err := net.Listen("tcp", addr)
 	if err != nil {
